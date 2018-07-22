@@ -32,6 +32,22 @@ public class BugRobot {
         SendResult result = client.send(BoanConfig.CHATBOT_WEBHOOK, message);
 
     }
+    public static void sendErrorToDD(Exception e) throws IOException {
+
+        ArrayList<String> atMobiles = new ArrayList<String>();
+
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        PrintStream pout = new PrintStream(out);
+        e.printStackTrace(pout);
+        String ret = new String(out.toByteArray());
+        pout.close();
+        TextMessage message = new TextMessage(ret);
+
+        message.setAtMobiles(atMobiles);
+
+        SendResult result = client.send(BoanConfig.CHATBOT_WEBHOOK, message);
+
+    }
     public static void sendErrorToDD(Exception e,Boolean flg) throws IOException {
 
         ByteArrayOutputStream out = new ByteArrayOutputStream();
@@ -48,5 +64,6 @@ public class BugRobot {
 
         SendResult result = client.send(BoanConfig.CHATBOT_WEBHOOK, message);
     }
+
 
 }
